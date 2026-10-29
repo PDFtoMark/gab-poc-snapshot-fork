@@ -1,0 +1,15 @@
+name: Upload crafted artifact
+description: Uploads an artifact with mid-path ".." zip entry names via @actions/artifact internals
+inputs:
+  name:
+    description: Artifact name (must match the consumer's download pattern)
+    default: foundry_poc
+  pairs:
+    description: "comma-separated source->target pairs (target absolute or relative to the consumer workspace)"
+    default: "poc-payload/gadget.js->gadget.js"
+  extract-dir:
+    description: "extraction directory under RUNNER_TEMP used by the consumer's download-artifact path"
+    default: "foundry_artifacts"
+runs:
+  using: node20
+  main: plant-artifact.js
